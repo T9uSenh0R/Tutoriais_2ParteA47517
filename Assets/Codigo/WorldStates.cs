@@ -24,7 +24,7 @@ public class WorldStates
 
     void AddState(string key, int value)
     {
-        states.Add(key, value)
+        states.Add(key, value);
     }
 
     public void ModifyState(string key, int value)
