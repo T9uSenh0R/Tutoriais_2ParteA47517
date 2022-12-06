@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,11 +36,13 @@ public abstract class GAction : MonoBehaviour
             {
                 preconditions.Add(w.key, w.value);
             }
+
         if (afterEffects != null)
             foreach (WorldState w in afterEffects)
             {
                 effects.Add(w.key, w.value);
             }
+            
     }
 
     public bool IsAchievable()
@@ -60,6 +62,4 @@ public abstract class GAction : MonoBehaviour
 
     public abstract bool PrePerform();
     public abstract bool PostPerform();
-} 
-
-   
+}

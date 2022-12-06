@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -16,11 +16,11 @@ public class SubGoal
     }
 }
 
-
 public class GAgent : MonoBehaviour
 {
     public List<GAction> actions = new List<GAction>();
     public Dictionary<SubGoal, int> goals = new Dictionary<SubGoal, int>();
+    public WorldStates beliefs = new WorldStates();
 
     GPlanner planner;
     Queue<GAction> actionQueue;
@@ -35,6 +35,7 @@ public class GAgent : MonoBehaviour
             actions.Add(a);
     }
 
+
     bool invoked = false;
     void CompleteAction()
     {
@@ -42,11 +43,12 @@ public class GAgent : MonoBehaviour
         currentAction.PostPerform();
         invoked = false;
     }
+
     void LateUpdate()
     {
         if (currentAction != null && currentAction.running)
         {
-            if (currentAction.agent.hasPath && currentAction.running)
+            if (currentAction.agent.hasPath && currentAction.agent.remainingDistance < 1f)
             {
                 if (!invoked)
                 {
@@ -56,13 +58,14 @@ public class GAgent : MonoBehaviour
             }
             return;
         }
-        if ( planner == null || actionQueue == null)
+
+        if (planner == null || actionQueue == null)
         {
             planner = new GPlanner();
 
             var sortedGoals = from entry in goals orderby entry.Value descending select entry;
 
-            foreach (KeyValuePair<SubGoal, int> sg in sortedGoals) 
+            foreach (KeyValuePair<SubGoal, int> sg in sortedGoals)
             {
                 actionQueue = planner.plan(actions, sg.Key.sgoals, null);
                 if (actionQueue != null)
@@ -73,7 +76,7 @@ public class GAgent : MonoBehaviour
             }
         }
 
-        if (actionQueue != null && actionQueue.Count > 0)
+        if (actionQueue != null && actionQueue.Count == 0)
         {
             if (currentGoal.remove)
             {
@@ -85,7 +88,7 @@ public class GAgent : MonoBehaviour
         if (actionQueue != null && actionQueue.Count > 0)
         {
             currentAction = actionQueue.Dequeue();
-            if(currentAction.PrePerform())
+            if (currentAction.PrePerform())
             {
                 if (currentAction.target == null && currentAction.targetTag != "")
                     currentAction.target = GameObject.FindWithTag(currentAction.targetTag);
@@ -100,6 +103,8 @@ public class GAgent : MonoBehaviour
             {
                 actionQueue = null;
             }
+
         }
+
     }
 }
