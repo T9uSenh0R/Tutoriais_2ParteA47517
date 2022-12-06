@@ -17,10 +17,12 @@ public sealed class GWorld
 
         //GameObject [] cubes = GameObject.FindGameObjectWithTag("Cubicle");
         //foreach (GameObject c in cubes)
-            //cubicles.Enqueue(c);
+        //cubicles.Enqueue(c);
 
         //if (cubes.Length > 0)
-            //world.ModifyState("FreeCubicle", cubes.Length);
+        //world.ModifyState("FreeCubicle", cubes.Length);
+
+        Time.timeScale = 5;
     }
 
     private GWorld()
