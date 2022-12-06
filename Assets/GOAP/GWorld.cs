@@ -15,12 +15,12 @@ public sealed class GWorld
         patients = new Queue<GameObject>();
         cubicles = new Queue<GameObject>();
 
-        GameObject cubes = GameObject.FindGameObjectWithTag("Cubicle");
-        foreach (GameObject c in cubes)
-            cubicles.Enqueue(c);
+        //GameObject [] cubes = GameObject.FindGameObjectWithTag("Cubicle");
+        //foreach (GameObject c in cubes)
+            //cubicles.Enqueue(c);
 
-        if (cubes.Length > 0)
-            world.ModifyState("FreeCubicle", cubes.Length);
+        //if (cubes.Length > 0)
+            //world.ModifyState("FreeCubicle", cubes.Length);
     }
 
     private GWorld()

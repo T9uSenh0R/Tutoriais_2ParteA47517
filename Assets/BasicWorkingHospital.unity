@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd98dc349f45f024991fcae351d1258b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: GetPatient
+  actionName: Get Patient
   cost: 1
   target: {fileID: 0}
   targetTag: 
